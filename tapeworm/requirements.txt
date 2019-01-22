@@ -9,7 +9,7 @@ pathlib2==2.3.3
 Pint==0.9
 pluggy==0.8.1
 py==1.7.0
-pyfrc==2019.0.2.post0.dev0
+pyfrc==2019.0.2
 pylint==2.2.2
 pynetconsole==2.0.2
 pynetworktables==2019.0.0

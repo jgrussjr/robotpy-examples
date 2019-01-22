@@ -65,7 +65,7 @@ class MyRobot(wpilib.SampleRobot):
 
             # Don't print every time
             if timer.hasPeriodPassed(0.5):
-                print("On Tape: " + str(self.sensor_c.get()))
+                print("Tape: -- " + str(int(self.sensor_l.get())) + " | " +  str(int(self.sensor_c.get())) + " | " + str(int(self.sensor_r.get())) + " --")
 
             wpilib.Timer.delay(0.04)
 
