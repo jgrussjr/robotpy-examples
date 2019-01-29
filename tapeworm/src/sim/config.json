@@ -18,13 +18,16 @@
       "px_per_ft": 10,
       
       "objects": [
-      	{ "color": "grey",
+      	{ "name": "barrier1",
+          "color": "grey",
       	  "points": [ [7.25,11.21], [10.333,11.21], [10.333,27], [7.25,27] ] },
       	  
-      	{ "color": "grey",
+      	{ "name": "barrier2",
+          "color": "grey",
           "points": [ [16.83, 0], [19.90, 0], [19.90, 15.75], [16.83, 15.75] ] },
 
-        { "color": "blue",
+        { "name": "tape1",
+          "color": "blue",
           "points": [ [5, 10], [25, 10], [25, 8], [5, 8] ] }
       ]
     }

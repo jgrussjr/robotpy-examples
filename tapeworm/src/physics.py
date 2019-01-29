@@ -51,12 +51,18 @@ class PhysicsEngine(object):
         )
         # fmt: on
 
-
         # setup tape coords
-        pprint(self.physics_controller.config_obj)
-        # makes an assumption that the tape is the 3rd object
-        tp = self.physics_controller.config_obj['pyfrc']['field']['objects'][2]['points']
-        self.tape_box = Polygon([tuple(tp[0]), tuple(tp[1]), tuple(tp[2]), tuple(tp[3])])
+        # Find an object with tape in the name.  Only take the first instance
+        tp = self.physics_controller.config_obj['pyfrc']['field']['objects']
+        for obj in tp:
+            if "tape" in obj['name']:
+                point_list = []
+                for pt in obj['points']:
+                    point_list.append(tuple(pt))
+                
+                self.tape_box = Polygon(point_list)
+
+                break
 
 
     def update_sim(self, hal_data, now, tm_diff):
