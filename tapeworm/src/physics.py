@@ -33,7 +33,6 @@ class PhysicsEngine(object):
         """
 
         self.physics_controller = physics_controller
-        self.position = 0
 
         # Change these parameters to fit your robot!
         bumper_width = 3.25 * units.inch
@@ -81,9 +80,6 @@ class PhysicsEngine(object):
 
         x, y, angle = self.drivetrain.get_distance(l_motor, r_motor, tm_diff)
         self.physics_controller.distance_drive(x, y, angle)
-
-        # update position (use tm_diff so the rate is constant)
-        self.position += hal_data["pwm"][4]["value"] * tm_diff * 3
 
         # get current pos
         curr_x, curr_y, curr_angle = self.physics_controller.get_position()
@@ -142,11 +138,9 @@ class PhysicsEngine(object):
         sensor_front_side_r = self.tape_box.contains(sensor_front_side_r_pos)
 
         # set values here
-        hal_data["dio"][4]["value"] = sensor_front_cntr
-        hal_data["dio"][5]["value"] = sensor_front_side_l
+        hal_data["dio"][4]["value"] = sensor_front_side_l
+        hal_data["dio"][5]["value"] = sensor_front_cntr
         hal_data["dio"][6]["value"] = sensor_front_side_r
-
-        hal_data["analog_in"][2]["voltage"] = self.position
 
 
 def findPointsOnLine(src_pnt, length,  slope):

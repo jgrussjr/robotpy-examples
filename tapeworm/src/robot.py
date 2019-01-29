@@ -23,11 +23,9 @@ class MyRobot(wpilib.SampleRobot):
         self.motor = wpilib.Jaguar(4)
 
         # tape sensor inputs
-        self.sensor_c = wpilib.DigitalInput(4)
-        self.sensor_l = wpilib.DigitalInput(5)
+        self.sensor_l = wpilib.DigitalInput(4)
+        self.sensor_c = wpilib.DigitalInput(5)
         self.sensor_r = wpilib.DigitalInput(6)
-
-        self.position = wpilib.AnalogInput(2)
 
     def disabled(self):
         """Called when the robot is disabled"""
