@@ -6,9 +6,7 @@
   	  "h": 3,
       
       "start_positions": [
-            {"x": 2, "y": 20, "angle": 0, "name": "lower"},
-            {"x": 2, "y": 10, "angle": 0, "name": "middle"},
-            {"x": 2, "y": 5, "angle": 0, "name": "top"}
+            {"x": 1, "y": 9.5, "angle": 0, "name": "top"}
         ]
   	},
   	
@@ -28,7 +26,7 @@
 
         { "name": "tape1",
           "color": "blue",
-          "points": [ [5, 10], [25, 10], [25, 8], [5, 8] ] }
+          "points": [ [1, 10], [25, 10], [25, 9.5], [1, 9.5] ] }
       ]
     }
   }
