@@ -132,10 +132,16 @@ class PhysicsEngine(object):
         else:
             print("ERROR: angle comparison is beyond 2*pi")
 
+        # Create 0.5 inch circle at the point location of each sensor
+        # This represents the surface area the sensor can detect
+        sensor_front_cntr_zone = sensor_front_cntr_pos.buffer(0.042)
+        sensor_front_side_l_zone = sensor_front_side_l_pos.buffer(0.042)
+        sensor_front_side_r_zone = sensor_front_side_r_pos.buffer(0.042)
+
         # Check sensor values
-        sensor_front_cntr = self.tape_box.contains(sensor_front_cntr_pos)
-        sensor_front_side_l = self.tape_box.contains(sensor_front_side_l_pos)
-        sensor_front_side_r = self.tape_box.contains(sensor_front_side_r_pos)
+        sensor_front_cntr = self.tape_box.intersects(sensor_front_cntr_zone)
+        sensor_front_side_l = self.tape_box.intersects(sensor_front_side_l_zone)
+        sensor_front_side_r = self.tape_box.intersects(sensor_front_side_r_zone)
 
         # set values here
         hal_data["dio"][4]["value"] = sensor_front_side_l
