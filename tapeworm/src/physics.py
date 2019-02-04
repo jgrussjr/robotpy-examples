@@ -74,6 +74,10 @@ class PhysicsEngine(object):
                             time that this function was called
         """
 
+        # Simulation params. Meant to be adjusted for specific robot hardware
+        sensor_radius = 0.042 # sensor detection radius in feet
+        sensor_spacing = 0.5 # one sensor is at center, other two are this far away
+
         # Simulate the drivetrain
         l_motor = hal_data["pwm"][1]["value"]
         r_motor = hal_data["pwm"][2]["value"]
@@ -101,7 +105,8 @@ class PhysicsEngine(object):
         forward_line_slope = (forward_end_y - curr_y) / (forward_end_x - curr_x)
 
         # find the two other sensor points, forming a perpendicular line to our forward line
-        t_a, t_b = findPointsOnLine((forward_end_x, forward_end_y), wid_seg_side_mag, (-1/ (forward_line_slope + .0000000001) ))
+        sensor_spacing = min(sensor_spacing, wid_seg_side_mag)
+        t_a, t_b = findPointsOnLine((forward_end_x, forward_end_y), sensor_spacing, (-1/ (forward_line_slope + .0000000001) ))
 
         # We have two points, need to decide on which the front 'right' vs 'left'
         # they are using a clockwise circle for some reason
@@ -134,9 +139,9 @@ class PhysicsEngine(object):
 
         # Create 0.5 inch circle at the point location of each sensor
         # This represents the surface area the sensor can detect
-        sensor_front_cntr_zone = sensor_front_cntr_pos.buffer(0.042)
-        sensor_front_side_l_zone = sensor_front_side_l_pos.buffer(0.042)
-        sensor_front_side_r_zone = sensor_front_side_r_pos.buffer(0.042)
+        sensor_front_cntr_zone = sensor_front_cntr_pos.buffer(sensor_radius)
+        sensor_front_side_l_zone = sensor_front_side_l_pos.buffer(sensor_radius)
+        sensor_front_side_r_zone = sensor_front_side_r_pos.buffer(sensor_radius)
 
         # Check sensor values
         sensor_front_cntr = self.tape_box.intersects(sensor_front_cntr_zone)
