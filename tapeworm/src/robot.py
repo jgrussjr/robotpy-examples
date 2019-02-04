@@ -30,6 +30,7 @@ class MyRobot(wpilib.SampleRobot):
     def disabled(self):
         """Called when the robot is disabled"""
         while self.isDisabled():
+            self.robot_drive.arcadeDrive(0.0, 0.0)
             wpilib.Timer.delay(0.01)
 
     def autonomous(self):
@@ -38,12 +39,28 @@ class MyRobot(wpilib.SampleRobot):
         timer = wpilib.Timer()
         timer.start()
 
+        found_line = False
+        last_turn = 0
+
         while self.isAutonomous() and self.isEnabled():
 
-            if timer.get() < 2.0:
-                self.robot_drive.arcadeDrive(-1.0, 0.3)
-            else:
-                self.robot_drive.arcadeDrive(0, 0)
+            while not self.sensor_l.get() and not found_line:
+                self.robot_drive.arcadeDrive(-0.5, 0.2)
+
+            found_line = True
+
+            if self.sensor_l.get():
+                last_turn = -0.2
+            elif self.sensor_c.get():
+                if self.gyro.getAngle() < 0:
+                    last_turn = 0.01 * abs(self.gyro.getAngle() - 0)
+                else:
+                    last_turn = 0.01 * abs(self.gyro.getAngle() - 0)                    
+            elif self.sensor_r.get():
+                last_turn = 0.2
+                
+
+            self.robot_drive.arcadeDrive(-0.5, last_turn)
 
             wpilib.Timer.delay(0.01)
 
